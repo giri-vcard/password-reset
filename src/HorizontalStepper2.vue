@@ -27,10 +27,10 @@
             <transition :enter-active-class="enterAnimation" :leave-active-class="leaveAnimation" mode="out-in">
                 <!--If keep alive-->
                 <keep-alive v-if="keepAlive">
-                    <component :is="steps[currentStep.index].component" :clickedNext="nextButton[currentStep.name]" @can-continue="proceed" @change-next="changeNextBtnValue" :current-step="currentStep"></component>
+                    <component :is="steps[currentStep.index].component" :clickedNext="nextButton[currentStep.name]" @can-continue="proceed" @change-next="changeNextBtnValue" :current-step="currentStep" @force-click-next="forceClickNext"></component>
                 </keep-alive>
                 <!--If not show component and destroy it in each step change-->
-                <component v-else :is="steps[currentStep.index].component" :clickedNext="nextButton[currentStep.name]" @can-continue="proceed" @change-next="changeNextBtnValue" :current-step="currentStep"></component>
+                <component v-else :is="steps[currentStep.index].component" :clickedNext="nextButton[currentStep.name]" @can-continue="proceed" @change-next="changeNextBtnValue" :current-step="currentStep" @force-click-next="forceClickNext"></component>
             </transition>
         </div>
         <div :class="['bottom', (currentStep.index > 0) ? '' : 'only-next']">
@@ -176,6 +176,13 @@ export default {
     changeNextBtnValue(payload) {
       this.nextButton[this.currentStep.name] = payload.nextBtnValue;
       this.$forceUpdate();
+    },
+
+    forceClickNext(payload) {
+        console.log('forceClickNext', payload);
+        setTimeout(()=> {
+            this.nextStep();
+        }, 2000)
     }
   },
 

@@ -29,6 +29,7 @@
   "homepage": "https://github.com/PygmySlowLoris/vue-stepper#readme",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
+    "build_dev": "cross-env NODE_ENV=development webpack --progress --hide-modules",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "prepublish": "npm run build",
     "test": "jest"
