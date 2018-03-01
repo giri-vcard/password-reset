@@ -30,7 +30,7 @@
             <div class="container">
                 <div class="columns">
                     <div class="column is-8 is-offset-2">
-                        <horizontal-stepper :steps="demoSteps" @completed-step="completeStep" :top-buttons="true"
+                        <horizontal-stepper :steps="demoSteps" @completed-step="completeStep" :top-buttons="false"
                                             @active-step="isStepActive" @stepper-finished="alert"></horizontal-stepper>
                     </div>
                 </div>
@@ -118,8 +118,7 @@
                 })
             },
             alert(payload) {
-                alert('Password Reset Success');
-                window.location.href = 'https://vcard.com';
+                console.log('alert', payload);
             }
         }
     }

@@ -27,13 +27,13 @@
             <transition :enter-active-class="enterAnimation" :leave-active-class="leaveAnimation" mode="out-in">
                 <!--If keep alive-->
                 <keep-alive v-if="keepAlive">
-                    <component :is="steps[currentStep.index].component" :clickedNext="nextButton[currentStep.name]" @can-continue="proceed" @change-next="changeNextBtnValue" :current-step="currentStep" @force-click-next="forceClickNext"></component>
+                    <component :is="steps[currentStep.index].component" :clickedNext="nextButton[currentStep.name]" @can-continue="proceed" @change-next="changeNextBtnValue" :current-step="currentStep" @force-click-next="forceClickNext" @force-redirect="forceRedirect"></component>
                 </keep-alive>
                 <!--If not show component and destroy it in each step change-->
-                <component v-else :is="steps[currentStep.index].component" :clickedNext="nextButton[currentStep.name]" @can-continue="proceed" @change-next="changeNextBtnValue" :current-step="currentStep" @force-click-next="forceClickNext"></component>
+                <component v-else :is="steps[currentStep.index].component" :clickedNext="nextButton[currentStep.name]" @can-continue="proceed" @change-next="changeNextBtnValue" :current-step="currentStep" @force-click-next="forceClickNext" @force-redirect="forceRedirect"></component>
             </transition>
         </div>
-        <div :class="['bottom', (currentStep.index > 0) ? '' : 'only-next']">
+        <div :class="['bottom', (currentStep.index > 0) ? '' : 'only-next']" style="display:none !important;">
             <div v-if="currentStep.index > 0" class="stepper-button previous" @click="backStep()">
                 <i class="material-icons">keyboard_arrow_left</i>
                 <span>{{ 'back' | translate(locale) }}</span>
@@ -151,7 +151,7 @@ export default {
       this.nextButton[this.currentStep.name] = true;
       if (this.canContinue) {
         if (this.finalStep) {
-          this.$emit("stepper-finished", this.currentStep);
+            this.$emit('force-redirect', {success: true});
         }
         let currentIndex = this.currentStep.index + 1;
 
@@ -177,12 +177,17 @@ export default {
       this.nextButton[this.currentStep.name] = payload.nextBtnValue;
       this.$forceUpdate();
     },
-
     forceClickNext(payload) {
         console.log('forceClickNext', payload);
         setTimeout(()=> {
             this.nextStep();
         }, 2000)
+    },
+    forceRedirect(payload) {
+        console.log('forceRedirect', payload);
+        setTimeout(()=> {
+            window.location.href = 'https://vcard.com/forgotpassword?success=' + payload.success;
+        }, 1000)
     }
   },
 
@@ -224,5 +229,11 @@ export default {
   direction: ltr;
   -webkit-font-feature-settings: "liga";
   -webkit-font-smoothing: antialiased;
+}
+</style>
+<style>
+.button_style {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 </style>
