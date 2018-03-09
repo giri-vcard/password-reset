@@ -1,20 +1,10 @@
 <template>
     <div class="card" style="margin: 3rem">
-        <header class="card-header">
-            <p class="card-header-title">
-                Verification
-            </p>
-            <a href="#" class="card-header-icon" aria-label="more options">
-              <span class="icon">
-                <i class="fa fa-angle-down" aria-hidden="true"></i>
-              </span>
-            </a>
-        </header>
         <div class="card-content">
 
             <div class="field">
-                <label class="label">Input 6 digits verification code send to your registered phone number</label>
-                <div class="control">
+                <label class="label">Input 6 digits verification code</label>
+                <div class="control" style="padding-top: 1rem;">
                     <input :class="['input', ($v.form.code.$error) ? 'is-danger' : '']" type="text" placeholder="Verification Code"
                            v-model="form.code">
                 </div>

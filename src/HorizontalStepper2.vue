@@ -10,7 +10,7 @@
                 </template>
                 <template v-for="(step, index) in steps">
                     <div :class="['step', isStepActive(index, step)]" :key="index" :style="{width: `${100 / steps.length}%`}">
-                        <div class="circle">
+                        <div class="circle" style="padding-top: 1rem;">
                             <i class="material-icons md-18">
                                 {{ (step.completed) ? 'done' : step.icon }}
                             </i>
@@ -181,7 +181,7 @@ export default {
         console.log('forceClickNext', payload);
         setTimeout(()=> {
             this.nextStep();
-        }, 2000)
+        }, 1000)
     },
     forceRedirect(payload) {
         console.log('forceRedirect', payload);
