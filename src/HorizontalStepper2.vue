@@ -230,10 +230,20 @@ export default {
   -webkit-font-feature-settings: "liga";
   -webkit-font-smoothing: antialiased;
 }
+
+@media only screen and (max-width: 600px) {
+    .divider-line {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
 </style>
 <style>
 .button_style {
     margin-top: 1rem;
     margin-bottom: 1rem;
+    border-width: 1px;
+    border-color: #dbdbdb;
 }
 </style>
